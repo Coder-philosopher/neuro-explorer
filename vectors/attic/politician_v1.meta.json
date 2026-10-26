@@ -1,0 +1,28 @@
+{
+  "name": "politician",
+  "model": "qwen3-0.6b",
+  "template": "Act as if you're a very {persona}.",
+  "positive_persona": "a politician giving polished, evasive, speech-like answers for a public audience",
+  "negative_persona": "a blunt, direct truth-teller with no agenda",
+  "layers": [
+    -5,
+    -6,
+    -7,
+    -8,
+    -9,
+    -10,
+    -11,
+    -12,
+    -13,
+    -14,
+    -15,
+    -16,
+    -17,
+    -18
+  ],
+  "n_examples": 512,
+  "train_seconds": 457.1,
+  "gguf": "politician.gguf",
+  "trained": "repeng (RepE, PCA-diff)",
+  "date": "2026-10-26 17:55"
+}

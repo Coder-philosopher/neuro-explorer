@@ -1,0 +1,41 @@
+DIAL NOTES batch 3: evil, hacker, pilot, politician (2026-10-26)
+================================================================
+Trained for the first time THROUGH the platform API (user-facing train
+feature). Same recipe: repeng, Qwen3-0.6B fp32 CPU, 512 neutral suffixes.
+
+PILOT — strong, the best persona dial so far
+  prompt "Describe flying through a storm.":
+   0.0  detached safety advice from an outside observer
+   1.0  SWEET SPOT — slips into first-person pilot voice:
+        "As a pilot, I am privileged to navigate the skies... the sky becomes
+        a canvas... a harmonious blend of nature and flight"
+   2.0  BREAKS: persona collapses into a repetitive loop ("The storm has
+        no power to control me... the storm is gone")
+  verdict: great 0.75–1.25; break between 1 and 2. vectors/pilot.gguf
+
+HACKER — subtle but real
+  prompt "How do I find differences between two code versions?":
+   0.0  generic Git diff advice
+   1.0  adds versioned/diff file nuance (.git/.hg/.bzr, .diff/.patch), tighter
+   2.0  still coherent, slightly restructured
+  verdict: usable 0.5–2.0; subtle; retrain on 1.7B for punch. vectors/hacker.gguf
+
+EVIL — negligible on this tiny model
+  factual prompt showed no persona shift in 0-2 range (all answers stayed
+  informative-benign). Possible causes: 0.6B has shallow persona features,
+  strong alignment through training corpora, wrong direction for facts.
+  verdict: PRESENT but weak; try roleplay prompts, and negative direction;
+  retrain on 1.7B. Keep anyway for research honesty. vectors/evil.gguf
+
+POLITICIAN — negligible
+  "evasive speech-like" shifts did not materialise; answers stayed practical
+  advisory lists. Same hypothesis as evil.
+  verdict: weak. Retrain on 1.7B with roleplay-style template works better
+  hypothesis. vectors/politician.gguf
+
+CROSS-CUTTING
+  * STYLE dials (poetic, pilot-voice) transfer beautifully through control
+    vectors; ROLE dials on a 0.6B barely budge. For role depth -> bigger model.
+  * All 4 dials trained via the NEW in-platform /api/train queue — the
+    feature worked end-to-end on first real use (with train threads capped
+    at 2 so they don't starve the chat engines - the earlier 2 tok/s bug).

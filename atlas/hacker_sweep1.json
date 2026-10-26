@@ -1,0 +1,20 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 17:57",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\hacker.gguf",
+  "prompt": "How do I find the differences between two code versions?",
+  "strengths": {
+    "0.0": {
+      "seconds": 7.2,
+      "output": "<think>\n\n</think>\n\nTo find the differences between two code versions, you can follow these general steps:\n\n1. **Use a Version Control System (VCS)**:\n   - Choose a version control system like Git (e.g., GitHub, GitLab, Subversion).\n   - Compare two files using Git's `git diff` command.\n   - Use tools like Git Diff or GitHub Compare to view the differences between two files.\n\n2. **Compare\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 7.0,
+      "output": "<think>\n\n</think>\n\nTo find the differences between two code versions, follow these steps:\n\n### 1. **Check the File Types and Versions**\n   - If the files are in a **versioned format**, such as `.git`, `.hg`, or `.bzr`, you can use Git or a version control tool to compare them.\n   - If the files are in a **standard format**, such as `.diff`, `.diff.patch`, or\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 6.6,
+      "output": "<think>\n\n</think>\n\nTo find differences between two code versions, follow these steps:\n\n### 1. **Identify the Code Versions**\n- **Use Git** to store the code versions.\n- **Check the repository** to see which files and their versions are present.\n\n### 2. **Use Git to Compare Code Versions**\n- **`git diff`** command to compare files between two branches.\n\n### 3. **Compare File Changes**\n\n> EOF by user"
+    }
+  }
+}

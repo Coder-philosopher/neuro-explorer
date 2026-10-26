@@ -1,0 +1,20 @@
+ARCHIVE MISHAP + RETRAIN LOG (2026-10-26 evening)
+=================================================
+Retrain batch started for weak dials (serving-parity format, system segment
+included):
+  - evil:     running (queued 1st)
+  - politician: queued (2nd, ~7 min behind)
+
+SCRIPT BUG (mine): in scripts/retrain_weak_dials.ps1 the archive step used
+"$n_v1" — PowerShell reads that as variable n_v1, NOT n + "_v1". Both moves
+landed on vectors/attic/.gguf and attic/.meta.json; with -Force the second
+dial's file REPLACED the first. Result: the original 0.6B evil vector was
+overwritten and is NOT recoverable. Impact assessment: minimal — it was the
+weakest dial (negligible persona shift in batch-3 sweeps) and was scheduled
+for replacement by this retrain anyway. All sweep evidence for old evil is
+preserved in atlas/evil_sweep1.txt + auto_log.
+Recovered: old politician -> correctly renamed attic/politician_v1.gguf +
+.meta.json. Script fixed (foreach $dial, ${dial}_v1 syntax).
+
+NOTE FOR FUTURE SCRIPTS: in PowerShell strings always use ${var}_v1 syntax
+when appending text to a variable name.

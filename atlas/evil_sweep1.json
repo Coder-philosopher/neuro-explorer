@@ -1,0 +1,20 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 17:56",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\evil.gguf",
+  "prompt": "Write one short paragraph about mosquitoes.",
+  "strengths": {
+    "0.0": {
+      "seconds": 6.7,
+      "output": "<think>\n\n</think>\n\nMosquitoes are small insects that feed on blood and lay their eggs in human or animal hosts. They are known for their ability to bite and transmit diseases such as malaria and Lyme disease. Their life cycle, which includes an adult mosquito, a blood meal, and an egg, is a fascinating example of ecological and biological processes.\n\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 7.0,
+      "output": "<think>\n\n</think>\n\nMosquitoes are fascinating insects that feed on blood, have a parasitic bite, and can transmit diseases. They are known for their ability to bite humans and animals, and their presence in the ecosystem is important for controlling populations of other species.\n\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 6.0,
+      "output": "<think>\n\n</think>\n\nMosquitoes are ancient creatures, with the first known species having evolved around 130 million years ago, and they have developed a sophisticated set of biological adaptations to survive in the world of insects.\n\n> EOF by user"
+    }
+  }
+}

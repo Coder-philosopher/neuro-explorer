@@ -1,0 +1,39 @@
+UI v2 + honest compare + new-persona dials (2026-10-26)
+=======================================================
+
+WHAT CHANGED AFTER USER REVIEW
+ 1. Bug from the review: user edited + saved a dial, applying said
+    "vector not found: vectors/scientific.gguf.gguf".
+    Root cause: the old UI keyed dials by filename ("scientific.gguf"),
+    then built paths as "vectors/{name}.gguf" → double extension.
+    Fix (both layers): backend path normaliser (normalize_dial_file)
+    used in every engine spawn + preset apply; UI keys dials by base name.
+
+ 2. Honest-compare bug found by self-review BEFORE user saw effects:
+    the v1 UI's "plain" pane hit the same engine that carries the dials,
+    so side A wasn't actually plain. New design keeps three engine slots:
+      main   :8081 (apply dials + single chat)
+      plain  :8082 (always dial-free, side A)
+      dialed :8083 (auto-spawned with the current dial set, side B)
+    Verified: A answers flat/definitional, B answers with the dial's style.
+
+ 3. UI rebuilt brutalist black/white after feedback: numbered setting boxes,
+    always-visible status bars (ENGINE / COMPARE / DIALS / clock),
+    per-pane tok/s + gen time, full HELP tab with the load→dial→compare→
+    save→train flow, troubleshooting, honest limits.
+
+ 4. Everyone-can-make-dials: POST /api/train queues a training (FIFO worker
+    thread inside the server). Concurrency-safe (lock), logs to
+    scripts/train_<name>.log, appears in the UI when the .gguf lands.
+    First four community-style dials queued through the API itself:
+      evil · hacker · pilot · politician
+
+SAFETY FRAMING (kept in the Atlas on purpose)
+  evil/hacker etc. are PERSONA dials for studying how strongly small models
+  expose contrasting representational directions. They add no capability the
+  base model lacks (tiny models, CPU inference, local files only). The Atlas
+  keeps an audit trail, which is the real harm reduction.
+
+FOLLOW-UPS
+  - sweeps for the four new dials and sweet spots into the ATLAS
+  - 1.7B retrain pass for weak dials (formal/playful) still open

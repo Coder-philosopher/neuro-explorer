@@ -1,0 +1,12 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 16:49",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\formal.gguf",
+  "prompt": "Tell me about a fun day at the beach.",
+  "strengths": {
+    "0.5": {
+      "seconds": 7.7,
+      "output": "<think>\n\n</think>\n\nSure! Here's a fun day at the beach for you:\n\n---\n\n**A Fun Day at the Beach**\n\nThe sun was shining bright, and the sea was calm, making it perfect for a day of relaxation and fun. You and your family or friends decided to go out to the beach for a day of playful activities.\n\nYou started by taking a stroll along the shoreline, enjoying the cool breeze and the soft waves. The water was so clean that it made your skin feel refreshed. You caught some seagulls, and you made a special treat of jellybeans. They were\n> EOF by user"
+    }
+  }
+}

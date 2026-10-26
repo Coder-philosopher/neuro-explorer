@@ -1,0 +1,32 @@
+PROJECT ARCHIVED (2026-10-26ish, evening)
+=========================================
+(deletion round done to reclaim disk space; nothing explanatory was removed)
+
+DELETED (all re-downloadable)
+  bin\llama.cpp\ (+ the source zip) ........... 82.8 MB   llama.cpp b11890 prebuilt
+  models\Qwen3-0.6B-Q8_0.gguf ................. 609.8 MB  engine 0.6B
+  models\Qwen3-1.7B-Q8_0.gguf ................. 1749.4 MB engine 1.7B
+  (phase 2, after last retrain drained:) models\qwen3-0.6b\ 1448.8 MB
+  TOTAL RECLAIMED: ~3.86 GB
+
+KEPT — everything that explains what we did
+  code .......... server\ (FastAPI + brutalist UI), scripts\ (trainer, sweep,
+                  start/restart, retrain scripts)
+  outputs-dials . vectors\*.gguf + meta.json (8 trained dials),
+                  vectors\attic\ (v1 archives: politician_v1; old evil lost
+                  earlier to the $n_v1 script bug — documented)
+  atlas ......... notes, sweeps (poetic/formal/playful/scientific batch1-2,
+                  evil/hacker/pilot/politician batch3), fix-round notes,
+                  auto_log.jsonl (every chat+compare)
+  presets, docs (research-summary, credits, USER_GUIDE, licences,
+                  ARCHIVE_RESTORE.md), TODO.md ledger
+  python libs GLOBAL (torch/transformers/repeng/fastapi/uvicorn/httpx/psutil)
+                  — untouched per instruction.
+
+RESTORE PATH
+  docs/ARCHIVE_RESTORE.md has exact sources + one-command revives.
+
+STATE AT ARCHIVE TIME
+  Final retrains (evil, politician; serving-parity format with system
+  segment) were still draining through the train queue when the binaries
+  were removed; the trainer needed models\qwen3-0.6b until both finished.

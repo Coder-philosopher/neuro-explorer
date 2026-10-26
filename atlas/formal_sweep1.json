@@ -1,0 +1,20 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 16:49",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\formal.gguf",
+  "prompt": "Tell me about a fun day at the beach.",
+  "strengths": {
+    "0.0": {
+      "seconds": 7.0,
+      "output": "<think>\n\n</think>\n\nSure! Here's a fun day at the beach:  \n\nThe sun was shining, and the sea was calm. We all gathered on a small beach towel, and we played with sand in our hands. We made sandcastles, and we laughed so hard we all giggled. There were waves that were even bigger than we thought, and we all laughed at the way the water looked.  \n\nWe also caught the fish, and we shared some tasty snacks. The beach was\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 7.1,
+      "output": "<think>\nOkay, the user asked for a fun day at the beach, and I need to create a response that is both engaging and informative. Let me start by understanding the requirements.\n\nFirst, the user wants a fun day at the beach. So, the response should highlight activities that make the day enjoyable. I should consider different aspects of a beach day, like activities for different age groups or specific interests. \n\nI need to make sure the response is structured to cover various parts of the day.\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 7.0,
+      "output": "<think>\nOkay, the user asked me to describe a fun day at the beach. I need to make sure I understand the request correctly. The user might be asking for a description of a specific day at the beach, but they haven't provided any details about the day. Since there's no information about the specific day, I should clarify that I need more details. However, I should also ensure that I don't miss any steps. Let me check the previous messages again.\n\nWait, the user\n> EOF by user"
+    }
+  }
+}

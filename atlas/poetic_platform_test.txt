@@ -1,0 +1,31 @@
+DIAL: poetic — platform integration test (2026-10-26, stage 3→4 handoff)
+=======================================================================
+What was verified, in order
+  1. Dial trained via scripts/train_dial.py (repeng, Qwen3-0.6B, fp32 CPU, 7 min)
+  2. Exported with vector.export_gguf -> vectors/poetic.gguf (112 KB)
+  3. Loaded through the STUDIO UI /api/start with strength 1.0 — engine restart
+     in ~10 s, dial flags built automatically
+  4. Chat through /api/chat (no_think system prompt):
+
+     prompt: "Describe the sea in one beautiful sentence."
+     steered(1.0): "The sea breathes with life, a vast, silver canvas where the
+                    world is reflected, both in waves and in the endless blue."
+     (compare sweep atlas/poetic_sweep1.txt — strength 0: plain, 4.0: broken)
+
+  Speed: llama-server runs the model at ~29 tok/s predicted (vs 12.6 tok/s raw
+  llama-completion earlier — server warm cache + batching helps).
+
+Bugs found & fixed while wiring (kept for the record)
+  * llama.cpp splits FNAME:SCALE on ":" — Windows "C:\..." drive letter breaks
+    the arg. Fix: pass engine-relative paths, no drive colon (rel_no_colon()).
+  * /api/start had the fixed + broken arg both in the vector args list
+    (leftover loop) — absolute path arg hit llama-server first and failing.
+    Removed the leftover loop.
+  * Multiple stale uvicorn instances shared port 8321 (SO_REUSEADDR on
+    Windows) and answered requests with different in-memory state. Fix:
+    kill by CommandLine before restarts; run ONE server. engine_alive() now
+    also recognises stranger-owned llama-server instances.
+  * vec_args UnboundLocalError after the cleanup edit — declaration re-added.
+
+Untested next: negative direction (plain-ifying), combos of 2 dials, 1.7B
+steering (model already downloaded: models/Qwen3-1.7B-Q8_0.gguf).

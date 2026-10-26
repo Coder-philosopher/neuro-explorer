@@ -1,0 +1,28 @@
+COMBO TESTS: multiple dials at once (2026-10-26)
+================================================
+Question: "Why is the sky blue? Answer vividly but keep it factual."
+
+Combo A — poetic@1.0 + scientific@1.0
+  Result: fully correct science (Rayleigh scattering present) but poetry
+  diluted; reads like plain-tuned textbook prose.
+  wall 5.4 s.
+
+Combo B — poetic@1.5 + scientific@0.75
+  Result: WORSE than either dial alone — lost both the "Rayleigh scattering"
+  precision and the lyricism; generic explanation about gas equilibrium.
+  wall 4.4 s.
+
+Interpretation (plain words)
+  Two style dials pushed together blur each other, like adding two slightly
+  different bass notes — the model's hidden state can only lean so far.
+  Same-strength mixes still keep the "shared" content core; amplifying one
+  dial does NOT proportionally restore its style while the other leans.
+
+Verdict / recommendations
+  * Combine at most 2 dials in the UI, both ≤1.0, prefer dials from clearly
+    different families (e.g. poetic + formal), and let side-by-side decide.
+  * причинам more reliable combo strategy: pick ONE dominant style dial +
+    a low-strength factuality nudge; remix via presets later.
+  * All combos still stay factual — no hallucination risk added so far.
+
+Both runs auto-logged into atlas/auto_log.jsonl.

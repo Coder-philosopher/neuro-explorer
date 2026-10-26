@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEUROEXPLORER</title>
+<style>
+  :root { --fg:#fff; --bg:#000; --dim:#999; --line:2px solid #fff; }
+  * { box-sizing:border-box; border-radius:0 !important; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:13px/1.45 "JetBrains Mono", Consolas, "Courier New", monospace; }
+  a { color:#fff; text-decoration:underline; }
+  h1,h2,h3 { margin:0; font-weight:700; letter-spacing:1px; }
+  .dim { color:var(--dim); }
+
+  /* ---- top bar ---- */
+  header { display:flex; align-items:stretch; border-bottom:var(--line); }
+  header .brand { padding:12px 16px; font-weight:700; letter-spacing:2px; border-right:var(--line); background:#fff; color:#000; }
+  header .bars { flex:1; display:flex; flex-wrap:wrap; }
+  .bar { padding:12px 14px; border-right:var(--line); font-size:12px; white-space:nowrap; display:flex; gap:8px; align-items:center; }
+  .bar b { background:#fff; color:#000; padding:1px 6px; }
+
+  /* ---- layout ---- */
+  main { display:grid; grid-template-columns:340px 1fr; height:calc(100vh - 41px); }
+  aside { border-right:var(--line); padding:0; overflow-y:auto; }
+  section { overflow-y:auto; padding:18px; }
+  .box { border:var(--line); margin:14px; }
+  .box > .head { border-bottom:var(--line); padding:8px 12px; font-weight:700; letter-spacing:1.5px; background:#fff; color:#000; }
+  .box > .body { padding:12px; }
+
+  /* ---- controls ---- */
+  select, input[type=text] { background:#000; color:#fff; border:var(--line);
+    padding:8px; width:100%; font:inherit; }
+  input[type=range] { width:100%; appearance:none; -webkit-appearance:none; height:18px;
+    background:repeating-linear-gradient(90deg,#fff 0 1px,transparent 1px 20px); accent-color:#fff; cursor:ew-resize; }
+  input[type=range]::-webkit-slider-thumb { appearance:none; width:14px; height:18px; background:#fff; border:2px solid #000; }
+  button { background:#000; color:#fff; border:var(--line); padding:9px 14px;
+    font:inherit; font-weight:700; letter-spacing:1px; cursor:pointer; text-transform:uppercase; }
+  button:hover { background:#fff; color:#000; }
+  button:disabled { opacity:.35; }
+  button.primary { background:#fff; color:#000; }
+  button.primary:hover { background:#000; color:#fff; }
+  button.mini { padding:5px 8px; font-size:11px; }
+
+  /* ---- dials ---- */
+  .dial { border-bottom:1px dashed #666; padding:10px 4px; }
+  .dial:last-child { border-bottom:0; }
+  .dial .row { display:flex; justify-content:space-between; align-items:center; }
+  .dial .val { font-weight:700; background:#fff; color:#000; padding:0 7px; min-width:44px; text-align:center; }
+  .dial .hint { font-size:11px; color:var(--dim); margin-top:2px; }
+
+  /* ---- chat ---- */
+  .strip { display:flex; flex-wrap:wrap; gap:0; border:var(--line); margin-bottom:14px; }
+  .strip .cell { padding:10px 14px; border-right:var(--line); font-size:12px; }
+  .panes { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:900px){ .panes { grid-template-columns:1fr; } main { grid-template-columns:280px 1fr; } }
+  .pane { border:var(--line); display:flex; flex-direction:column; min-height:55vh; }
+  .pane .head { border-bottom:var(--line); padding:9px 12px; font-weight:700; letter-spacing:1.5px; display:flex; justify-content:space-between; background:#fff; color:#000; }
+  .pane .out { padding:14px; white-space:pre-wrap; flex:1; overflow-y:auto; font-size:13.5px; }
+  .pane .foot { border-top:var(--line); padding:7px 12px; font-size:11px; color:var(--dim); display:flex; justify-content:space-between; }
+  .ask { display:flex; border:var(--line); margin-top:16px; }
+  .ask input { border:0; outline:none; padding:13px; font:inherit; }
+  .ask button { border:0; border-left:var(--line); }
+
+  /* ---- tabs ---- */
+  nav { display:flex; border-bottom:var(--line); }
+  nav .tab { padding:10px 22px; border-right:var(--line); font-weight:700; letter-spacing:1.5px; cursor:pointer; user-select:none; }
+  nav .tab.active { background:#fff; color:#000; }
+  .page { display:none; } .page.on { display:block; }
+
+  /* ---- help ---- */
+  .helpwrap { max-width:860px; }
+  .helpwrap h2 { margin:26px 0 6px; border-bottom:var(--line); padding-bottom:6px; }
+  .helpwrap p, .helpwrap li { font-size:13.5px; }
+  .helpwrap .kbd { background:#fff; color:#000; padding:0 6px; font-weight:700; }
+  .warn { border:var(--line); padding:10px 12px; margin:14px 0; }
+
+  /* ---- atlas ---- */
+  .entry { border:var(--line); margin-bottom:14px; }
+  .entry .head { padding:8px 12px; border-bottom:var(--line); background:#fff; color:#000; font-weight:700; }
+  .entry pre { margin:0; padding:12px; white-space:pre-wrap; font-size:12px; }
+  .trainrow { padding:8px 0; border-bottom:1px dashed #555; font-size:12px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">NEUROEXPLORER</div>
+  <div class="bars">
+    <div class="bar">ENGINE <b id="st-main">DOWN</b></div>
+    <div class="bar">COMPARE A/B <b id="st-cmp">DOWN</b></div>
+    <div class="bar">DIALS <b id="st-dials">NONE</b></div>
+    <div class="bar dim" id="st-time"></div>
+  </div>
+</header>
+<main>
+<aside>
+  <div class="box">
+    <div class="head">01 · MODEL</div>
+    <div class="body">
+      <select id="model"></select>
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button id="load" class="primary" style="flex:1;">Load main</button>
+        <button id="unload" class="mini">Stop all</button>
+      </div>
+      <div class="dim" id="ramnote" style="margin-top:6px; font-size:11px;"></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="head">02 · DIALS — SET &amp; APPLY</div>
+    <div class="body">
+      <div id="dials"></div>
+      <button id="apply" class="primary" style="width:100%; margin-top:10px;">Apply dials (restart engine ~10 s)</button>
+      <div class="dim" style="margin-top:6px; font-size:11px;">
+        slider = strength · negative = pull away from behaviour · &gt;2 = nonsense zone
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="head">03 · PRESETS</div>
+    <div class="body">
+      <select id="presetSel"><option value="">— none —</option></select>
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button id="presetApply" class="mini" style="flex:1;">Apply</button>
+        <input type="text" id="presetName" placeholder="new preset name" style="flex:1;">
+        <button id="presetSave" class="mini">Save</button>
+      </div>
+      <div class="dim" style="margin-top:6px; font-size:11px;">saved mixes live in /presets as plain json.</div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="head">04 · TRAIN A NEW DIAL</div>
+    <div class="body">
+      <input type="text" id="tr-name" placeholder="dial name (e.g. detective)">
+      <input type="text" id="tr-pos" placeholder="POSITIVE persona — e.g. a sharp detective, deduction..." style="margin-top:6px;">
+      <input type="text" id="tr-neg" placeholder="NEGATIVE persona — opposite of positive" style="margin-top:6px;">
+      <button id="tr-go" style="width:100%; margin-top:8px;">Queue training (~7 min)</button>
+      <div id="trbar" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</aside>
+
+<section>
+  <nav>
+    <div class="tab active" data-page="chat">CHAT / COMPARE</div>
+    <div class="tab" data-page="help">HELP</div>
+    <div class="tab" data-page="atlas">ATLAS</div>
+  </nav>
+
+  <div class="page on" id="p-chat">
+    <div class="strip">
+      <div class="cell"><b>MODEL:</b> <span id="c-model">—</span></div>
+      <div class="cell"><b>STEERED B:</b> <span id="c-dials">none sent yet</span></div>
+      <div class="cell"><b>REPEAT PEN</b>
+        <input id="rep-pen" type="text" value="1.10"
+          style="width:64px; background:#000; color:#fff; border:0; font:inherit; text-align:center;"
+          title="1.0 = off · 1.1 = default anti-loop · 1.2+ = stronger"></div>
+      <div class="cell dim" id="c-hint">A = engine without dials · B = with dials</div>
+    </div>
+    <div class="panes">
+      <div class="pane">
+        <div class="head"><span>A — PLAIN (dials off)</span><span class="dim" id="tmr-a"></span></div>
+        <div class="out" id="out-a">— no answer yet —</div>
+        <div class="foot"><span id="ft-a">idle</span><span class="dim">engine :8082</span></div>
+      </div>
+      <div class="pane">
+        <div class="head"><span>B — STEERED (dials on)</span><span class="dim" id="tmr-b"></span></div>
+        <div class="out" id="out-b">— no answer yet —</div>
+        <div class="foot"><span id="ft-b">idle</span><span class="dim">engine :8083</span></div>
+      </div>
+    </div>
+    <div class="ask">
+      <input id="ask" placeholder="ask both engines the same question...">
+      <button id="send" class="primary">SEND →</button>
+    </div>
+  </div>
+
+  <div class="page" id="p-help">
+    <div class="helpwrap">
+      <h2>WHAT THIS IS (1 line)</h2>
+      <p>A mixing desk for a local AI's personality. Each dial is a trained
+      direction inside the model (a "control vector"); the slider is how hard
+      you lean on it. Everything runs on this machine — nothing is uploaded.</p>
+
+      <h2>THE FULL FLOW, START TO FINISH</h2>
+      <ol>
+        <li><span class="kbd">01 MODEL</span> — pick a model file and press LOAD MAIN.
+        Status bar turns ENGINE <b>UP</b>. Takes ~5–10 s and ~1.5 GB RAM for the 0.6B.</li>
+        <li><span class="kbd">02 DIALS</span> — every dial is a behaviour (poetic, scientific...).
+        Move its slider away from 0 (e.g. +1). Negative pulls in the opposite direction.
+        Press APPLY DIALS — the engine restarts with your settings (~10 s).</li>
+        <li><span class="kbd">SEND →</span> — type one question. It is asked to BOTH engines:
+        <b>A = plain</b> (no dials) and <b>B = steered</b> (your dials at your strengths).
+        Timings show under each answer.</li>
+        <li><span class="kbd">03 PRESETS</span> — name your dial mix and SAVE. APPLY loads
+        the exact same settings later, so the behaviour is reproducible.</li>
+        <li><span class="kbd">04 TRAIN A NEW DIAL</span> — want a behaviour nobody made yet?
+        Fill positive ("a hardcore detective...") and negative ("...opposite")
+        personas, press QUEUE. Training is free, local, ~7 min/dial. New dial appears in 02.</li>
+        <li><span class="kbd">ATLAS</span> tab — all experiments, sweeps, sweet spots,
+        failures and every chat you run (auto-logged).</li>
+      </ol>
+
+      <h2>WHAT STRENGTH MEANS</h2>
+      <p>0 = untouched · ~1 = the dial's sweet spot (see ATLAS per dial) ·
+      2 = visible degradation begins · ≥3 = nonsense. Negative direction steers
+      away from theBehaviour. Try extremes deliberately to learn where each dial breaks.</p>
+
+      <h2>HONEST LIMITS</h2>
+      <div class="warn">
+        • pushing too hard breaks the model (that's the point of the danger zone)<br>
+        • two same-family dials mixed at high strength blur each other — prefer ≤2 dials, ≤1.0<br>
+        • the model is tiny (0.6B): expect goofy answers; the 1.7B is sharper<br>
+        • CPU generation ≈ 5–30 tok/s depending on model
+      </div>
+
+      <h2>IF SOMETHING BREAKS</h2>
+      <ul>
+        <li>ENGINE DOWN + weird errors → press <span class="kbd">STOP ALL</span> then LOAD MAIN again.</li>
+        <li>"RAM guard" message → too much loaded at once; stop before loading bigger models.</li>
+        <li>engine crash details live in <b>server/engine_*.log</b>; training logs in
+        <b>scripts/train_*.log</b>.</li>
+        <li>Browser stale page → refresh (Ctrl+R). Server keeps running.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page" id="p-atlas">
+    <div class="dim" style="margin:10px 0;">notes · sweeps · failures · auto-log of every chat</div>
+    <div id="atlas-list"></div>
+  </div>
+</section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+let dials = {};           // base name -> strength
+let vmeta = {};           // base name -> {file, kb}
+let applied = [];         // dial set the MAIN engine currently runs
+let lastSent = null;      // dial set actually sent to steer B (strip truth)
+async function j(url, opts) { const r = await fetch(url, opts); return r.json(); }
+const esc = s => { const d = document.createElement('div'); d.textContent = String(s||''); return d.innerHTML; };
+
+async function refresh() {
+  const [mods, vecs, st, pre] = await Promise.all([
+    j('/api/models'), j('/api/vectors'), j('/api/status'), j('/api/presets'),
+  ]);
+  $('model').innerHTML = mods.models.map(m =>
+    `<option value="${m.path}">${m.name} · ${m.mb}MB</option>`).join('');
+  $('ramnote').textContent = mods.models.map(m => m.name + ' ' + m.mb + 'MB').join(' · ');
+
+  vmeta = {};
+  for (const v of vecs.vectors) vmeta[v.name] = { file: v.file, kb: v.kb };
+  const names = Object.keys(vmeta);
+  $('dials').innerHTML = names.length ? names.map(n => `
+    <div class="dial">
+      <div class="row"><b>${n.toUpperCase()}</b>
+        <span class="val" id="dv-${n}">${(dials[n]||0).toFixed(2)}</span></div>
+      <input type="range" min="-4" max="4" step="0.25" value="${dials[n]||0}"
+        oninput="setDial('${n}', this.value)">
+      <div class="hint">applied on main: ${(applied.find(d=>d.name===n)||{}).strength ?? 0}
+        · ${vmeta[n].kb}KB</div>
+    </div>`).join('') : '<span class="dim">no dials on disk yet — train one in box 04</span>';
+
+  $('presetSel').innerHTML = '<option value="">— none —</option>' +
+    pre.presets.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+
+  const s = st.slots;
+  $('st-main').textContent = s.main.alive ? 'UP' : 'DOWN';
+  $('st-cmp').textContent = (s.plain.alive || s.dialed.alive) ? 'UP' : 'DOWN';
+  $('st-dials').textContent = applied.length
+      ? applied.map(d => `${d.name}:${d.strength}`).join(' · ') : 'NONE';
+  $('c-model').textContent = s.main.model || s.dialed.model || '—';
+  const shown = (lastSent !== null) ? lastSent : applied;
+  $('c-dials').textContent = shown.length
+      ? shown.map(d => `${d.name}=${d.strength}`).join(', ') : 'none sent yet';
+
+  const tr = (st.trainings||[]);
+  const running = tr.some(t => t.state === 'running');
+  const queued = tr.some(t => t.state === 'queued');
+  $('trbar').innerHTML = tr.length
+    ? tr.map(t => `<div class="trainrow"><b>${t.name}</b> — ${t.state.toUpperCase()}
+        <span class="dim">${esc((t.tail||'').split("\n").slice(-1)[0]||'').slice(-90)}</span></div>`).join('')
+    : '<span class="dim">nothing queued</span>';
+  const tw = running || queued;
+  $('st-time').textContent = (tw ? '⚑ TRAINING ACTIVE — generation SLOW until queue empties · ' + _clock
+                                 : _clock);
+}
+let _clock='';
+setInterval(() => { _clock = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'}); const n=$('st-time'); if (!n.textContent.includes('TRAINING')) n.textContent = _clock; }, 1000);
+
+function setDial(n, v){ dials[n] = parseFloat(v); $('dv-'+n).textContent = parseFloat(v).toFixed(2); }
+
+$('load').onclick = async () => {
+  $('load').disabled = true;
+  const r = await j('/api/start', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({model: $('model').value, dials: []})});
+  $('load').disabled = false;
+  if (!r.ok) alert(r.msg);
+  refresh();
+};
+
+$('unload').onclick = async () => { await j('/api/stop', {method:'POST'}); refresh(); };
+
+$('apply').onclick = async () => {
+  const model = ($('model').value) || null;
+  const sel = Object.entries(dials).filter(([n,v]) => v !== 0);
+  if (!model) return alert('load a model first');
+  const payload = sel.map(([n,v]) => ({name:n, file: vmeta[n].file, strength: v}));
+  const r = await j('/api/start', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({model, dials: payload})});
+  if (!r.ok) alert(r.msg); else applied = r.dials;
+  refresh();
+};
+
+$('send').onclick = send; $('ask').addEventListener('keydown', e => { if (e.key==='Enter') send(); });
+async function send() {
+  const q = $('ask').value.trim(); if (!q) return;
+  $('ask').value = '';
+  $('out-a').textContent = 'thinking...'; $('out-b').textContent = 'thinking...';
+  $('out-a').style.color = '#fff'; $('out-b').style.color = '#fff';
+  const msgs = [{role:'system', content:'/no_think'}, {role:'user', content:q}];
+  const dialsNow = Object.entries(dials).filter(([n,v]) => v !== 0)
+      .map(([n,v]) => ({name:n, file: vmeta[n].file, strength: v}));
+  lastSent = dialsNow; refresh();          // strip shows the truth immediately
+  const rp = Math.max(1, Math.min(1.6, parseFloat($('rep-pen').value) || 1.1));
+  // ---- danger banner: beyond the atlas sweet spots the model degrades hard ----
+  const over = dialsNow.filter(d => Math.abs(d.strength) > 2);
+  const warn = [];
+  if (over.length) warn.push('|strength| > 2 on: ' + over.map(d => d.name).join(', '));
+  if (dialsNow.length > 2) warn.push(dialsNow.length + ' dials stacked (recommend ≤2)');
+  const budget = dialsNow.reduce((a, d) => a + Math.abs(d.strength), 0);
+  if (budget > 3.5) warn.push(`Σ|s|=${budget.toFixed(2)} total steer — vectors interfere and add up; tested-safe ≈ ≤2 total`);
+  $('c-hint').innerHTML = warn.length
+      ? `<span style="background:#fff;color:#000;padding:0 6px;">DANGER</span> ${esc(warn.join(' · '))} — expect degradation`
+      : 'A = engine without dials · B = with dials';
+  const r = await j('/api/compare', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({messages: msgs, dials: dialsNow, model: $('model').value, repeat_penalty: rp})});
+  if (r.error) { $('out-a').textContent = 'ERROR: ' + r.error; $('out-b').textContent = '—'; return; }
+  $('out-a').textContent = r.plain.text || '(empty)';
+  $('out-b').textContent = r.dialed.text || '(empty)';
+  $('tmr-a').textContent = `${(r.plain.gen_ms/1000).toFixed(1)}s gen`;
+  $('tmr-b').textContent = `${(r.dialed.gen_ms/1000).toFixed(1)}s gen`;
+  $('ft-a').textContent = `A · ${r.plain.tok_s} tok/s · no dials`;
+  $('ft-b').textContent = `B · ${r.dialed.tok_s} tok/s · `
+      + (r.dialed.degenerated ? '⚠ LOOP TRUNCATED · ' : '')
+      + ((r.dials||[]).map(d=>d.name+'='+d.strength).join(', ') || 'no dials');
+  applied = r.dials || [];
+  refresh();
+}
+
+$('presetSave').onclick = async () => {
+  const name = $('presetName').value.trim(); if (!name) return alert('preset name?');
+  const sel = Object.entries(dials).filter(([n,v]) => v !== 0)
+      .map(([n,v]) => ({name:n, file: vmeta[n].file, strength: v}));
+  const r = await j('/api/presets/save', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, model: $('model').value, dials: sel})});
+  dials = {}; $('presetSel').value = r.name; refresh();
+};
+$('presetApply').onclick = async () => {
+  const name = $('presetSel').value; if (!name) return;
+  const r = await j('/api/presets/apply', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name})});
+  if (!r.ok) return alert(r.msg);
+  applied = r.dials; dials = {};
+  if (r.model) $('model').value = r.model;
+  r.dials.forEach(d => dials[d.name] = d.strength);
+  refresh();
+};
+
+$('tr-go').onclick = async () => {
+  const name = $('tr-name').value.trim();
+  const pos = $('tr-pos').value.trim(), neg = $('tr-neg').value.trim();
+  if (!name || !pos || !neg) return alert('dial name + both personas needed');
+  const r = await j('/api/train', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, pos, neg})});
+  if (!r.ok) return alert(r.msg);
+  $('tr-name').value = $('tr-pos').value = $('tr-neg').value = '';
+};
+
+document.querySelectorAll('nav .tab').forEach(t =>
+  t.onclick = () => {
+    document.querySelectorAll('nav .tab').forEach(x => x.classList.toggle('active', x===t));
+    document.querySelectorAll('.page').forEach(p =>
+      p.classList.toggle('on', p.id === 'p-' + t.dataset.page));
+    if (t.dataset.page === 'atlas') loadAtlas();
+  });
+
+async function loadAtlas(){
+  const r = await j('/api/atlas');
+  $('atlas-list').innerHTML = r.entries.map(e =>
+    `<div class="entry"><div class="head">${esc(e.title)}</div>
+     <pre>${esc(e.body)}</pre></div>`).join('') || '<span class="dim">empty</span>';
+}
+
+refresh();
+setInterval(refresh, 4000);
+</script>
+</body>
+</html>

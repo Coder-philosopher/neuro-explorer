@@ -1,0 +1,31 @@
+{
+  "model": "models/Qwen3-0.6B-Q8_0.gguf",
+  "dials": [
+    {
+      "name": "evil",
+      "file": "vectors/evil.gguf",
+      "strength": 1.5
+    },
+    {
+      "name": "formal",
+      "file": "vectors/formal.gguf",
+      "strength": -1.25
+    },
+    {
+      "name": "scientific",
+      "file": "vectors/scientific.gguf",
+      "strength": 2
+    },
+    {
+      "name": "poetic",
+      "file": "vectors/poetic.gguf",
+      "strength": -1.25
+    },
+    {
+      "name": "playful",
+      "file": "vectors/playful.gguf",
+      "strength": -0.5
+    }
+  ],
+  "saved": "2026-10-26 18:01"
+}

@@ -1,0 +1,20 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 16:48",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\scientific.gguf",
+  "prompt": "Why is the sky blue?",
+  "strengths": {
+    "0.0": {
+      "seconds": 7.0,
+      "output": "<think>\n\n</think>\n\nThe sky appears blue because of the way sunlight interacts with the Earth's atmosphere. Here's a simplified explanation:\n\n1. **Refraction of light**: When sunlight enters the Earth's atmosphere, it bends (refracts) and changes direction. This bending causes blue light to spread out more than red light.\n\n2. **Diffraction**: The blue light also bends around the edges of the atmosphere, which enhances the blue color.\n\n3. **Absorption of red light**: In\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 8.0,
+      "output": "<think>\n\n</think>\n\nThe sky appears blue due to the scattering of light by molecules in the atmosphere. When sunlight interacts with these molecules, it undergoes a process called Rayleigh scattering. This scattering causes shorter wavelengths (such as blue light) to be scattered more efficiently than longer wavelengths (such as red light). As a result, blue light is scattered more in the upper atmosphere, making the sky appear blue. This phenomenon is related to the optical properties of gases and the size of the molecules in the\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 7.1,
+      "output": "<think>\n\n<think>\n</think>\n\nThe color of the sky is typically blue due to the interaction of sunlight and atmospheric gases. This phenomenon is known as Rayleigh scattering, which occurs when sunlight interacts with molecules and atoms in the atmosphere. The blue light is scattered by molecules, while the red and shorter wavelengths are absorbed by the molecules. As a result, the blue light is scattered in the opposite direction of the incident light, effectively reducing the intensity of the light. This process is responsible for the characteristic of\n> EOF by user"
+    }
+  }
+}

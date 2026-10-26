@@ -1,0 +1,27 @@
+SWEEP: poetic2
+PROMPT: Describe a rainy evening.
+
+== strength 1.0 ==
+<think>
+
+</think>
+
+A rainy evening is a cozy and intimate scene that brings a sense of calm and comfort. The air is heavy with the scent of raindrops on the window, creating a soft, damp atmosphere. The sky is dark and filled with clouds, casting a deep blue hue over the horizon. It is a time of reflection and relaxation, where people can sit by the window, sipping a cup of tea or coffee, and take in the beauty of the environment. The rain adds a
+> EOF by user
+
+== strength 2.0 ==
+<think>
+
+</think>
+
+A rainy evening is a time of soft, distant thunder and falling rain. The air is heavy with moisture, and the sky is often covered in clouds that look like cotton. The streets hum with the sounds of people walking, maybe even their children playing in the rain. The light is dim, and the colors are muted, giving the scene a cozy feel. It’s a moment of peace and reflection, where the rain adds to the atmosphere.
+
+> EOF by user
+
+== strength 4.0 ==
+<think>
+
+</think>
+
+A rainy evening is a vivid and peaceful scene that can evoke a sense of tranquility and reflection. The sky may be dark and filled with clouds, casting a soft, mysterious glow. The air is filled with the scent of rainwater, and the sound of distant thunder creates a rhythmic backdrop. In the distance, perhaps a familiar street or a quiet park adds to the atmosphere. Children may be playing in the puddles, and the leaves rustle gently in the wind.
+> EOF by user

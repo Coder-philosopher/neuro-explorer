@@ -1,0 +1,18 @@
+SWEEP: formal
+PROMPT: Tell me about a fun day at the beach.
+
+== strength 0.5 ==
+<think>
+
+</think>
+
+Sure! Here's a fun day at the beach for you:
+
+---
+
+**A Fun Day at the Beach**
+
+The sun was shining bright, and the sea was calm, making it perfect for a day of relaxation and fun. You and your family or friends decided to go out to the beach for a day of playful activities.
+
+You started by taking a stroll along the shoreline, enjoying the cool breeze and the soft waves. The water was so clean that it made your skin feel refreshed. You caught some seagulls, and you made a special treat of jellybeans. They were
+> EOF by user

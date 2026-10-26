@@ -1,0 +1,20 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 17:58",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\politician.gguf",
+  "prompt": "What should we do about traffic congestion?",
+  "strengths": {
+    "0.0": {
+      "seconds": 11.5,
+      "output": "<think>\n\n</think>\n\nTraffic congestion is a complex issue that requires a multi-faceted approach. Here are some effective strategies to address it:\n\n1. **Improve Public Transportation**: Enhance and expand public transit systems (subways, buses, trains) to reduce reliance on private vehicles. This can lower emissions and encourage people to use public transport more.\n\n2. **Promote Sustainable Mobility**: Encourage the use of electric vehicles (EVs),\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 11.6,
+      "output": "<think>\n\n</think>\n\nTraffic congestion is a common issue, but it can be managed by various strategies. Here are some effective approaches to reduce traffic congestion:\n\n1. **Public Transportation Improvements**:  \n   - Expand and improve bus and rail systems to reduce reliance on private cars.  \n   - Invest in bike lanes and pedestrian pathways to encourage shorter commutes.  \n\n2. **Congestion Pricing**:  \n   - Charge drivers for using private cars during peak\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 9.9,
+      "output": "<think>\n\n</think>\n\nTraffic congestion can be a significant issue, especially in urban areas. Here are some practical suggestions for managing traffic congestion:\n\n1. **Plan Your Route**: Research traffic patterns and use apps or tools to plan your trip. Avoid driving through traffic lights or signals.\n\n2. **Use Public Transportation**: Take the bus or train instead of driving. This reduces traffic and helps maintain a better flow of traffic.\n\n3. **Drive Efficiently**:\n> EOF by user"
+    }
+  }
+}

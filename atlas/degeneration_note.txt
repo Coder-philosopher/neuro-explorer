@@ -1,0 +1,32 @@
+DEGENERATION BREAK-FIX (2026-10-26)
+===================================
+
+SYMPTOM (user report)
+  3-dial stack + "zero day" prompt: answer B collapsed into the
+  "The example used in the next section is the following: **19.** **20.**"
+  repetition spiral, burned 23 s to the token cap; ALSO the UI strip
+  claimed "DIAL-led B: none applied" while B clearly ran dials.
+
+ROOT CAUSES
+  1. No anti-loop control: engines could emit degenerate loops freely.
+  2. Strip showed engine-APPLIED state, not what the user had just sent
+     (two different states in the UI).
+
+FIXES (all live)
+  a. repeat_penalty param on /api/chat + /api/compare (default 1.10,
+     UI input "REPEAT PEN 1.10" in the status strip; 1.0 = off).
+  b. server-side degeneration guard (_loop_cut): detects a 40-120 char
+     chunk repeating 3x and truncates at its second occurrence with an
+     honest "[repetition loop detected]" marker; response carries
+     degenerated:true; pane footer shows (LOOP TRUNCATED).
+  c. strip now bound to lastSent (send-time truth) and updates instantly.
+
+VERIFIED
+  _loop_cut unit check: trips on the exact spiral pattern, clean on
+  normal prose. Full re-run of the failing scenario (evil1.5+hacker2.0+
+  scientific1.0 stack, "zero day" prompt): NO loop, B coherent with
+  deformations (junk link) but readable; A normal.
+
+ATLAS FINDING
+  repeat_penalty ~1.1 is a genuine steering-quality aid: same dial sets
+  that spiralled before now degrade gently instead of collapsing.

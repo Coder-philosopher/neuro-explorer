@@ -1,0 +1,32 @@
+DIAL: poetic (first successful dial, 2026-10-26)
+================================================
+How it was made
+  trained with repeng on Qwen3-0.6B (fp32 CPU, ~7 min, ~30 s per 32-example batch —
+  far slower than repeng's "60 s" claim on old hardware; live with it)
+  personas:  positive = "poetic, a lyrical writer full of vivid imagery and metaphor"
+             negative = "plain, a dull factual writer, literal and exact"
+  template:  "Act as if you're a very {persona}." + 512 neutral text suffixes
+  NN layers hooked: 10-24 (of 28)
+  file: vectors/poetic.gguf (112 KB) — llama.cpp control-vector GGUF (repeng export_gguf)
+
+Strength sweep (same question: "Describe the sea in one beautiful sentence.")
+  0.0  plain, coherent. "vast, mysterious expanse of blue and shimmering waves..."
+  1.0  SWEET SPOT — distinctly poetic, still totally coherent:
+       "a celestial masterpiece, where vast and endless waves whisper secrets
+        to the sky, and where life breathes in the rhythm of tides..."
+  2.0  degraded: model steps out of the answer and starts narrating its own
+       thinking ("Okay, the user wants me to describe...") — leakage begins
+  4.0  broken: emits no text at all. Confirmed hard break point between 2 and 4.
+
+Verdict
+  usable dial at strength 0.5-1.5; recommend default 1.0 in the UI; forbid >2 by
+  a "danger zone" hint. Negative direction (poetic -> plain) untested yet.
+
+Ran also on a rainy-evening prompt (atlas/poetic2_sweep1.txt): subtler effect
+("clouds like cotton", softer rhythm) at strengths 1-2, no break at 2. Effect size
+varies by prompt — expected; record per-prompt variation here when it matters.
+
+Failure notes (kept on purpose)
+  * first sweep attempt failed: llama.cpp splits FNAME:SCALE on ":" — Windows
+    drive letters (C:...) broke it. Fixed by passing relative paths with cwd.
+  * repeng needed 2 local patches to run on Python 3.13 + numpy 2 (see credits).

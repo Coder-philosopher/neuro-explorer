@@ -1,0 +1,20 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 17:57",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\pilot.gguf",
+  "prompt": "Describe flying through a storm.",
+  "strengths": {
+    "0.0": {
+      "seconds": 6.9,
+      "output": "<think>\n\n</think>\n\nFlying through a storm is a thrilling and unpredictable experience. Storms can bring sudden changes in weather, including heavy rain, thunder, lightning, and strong winds. Depending on the conditions, flying through a storm might be a dangerous and unpredictable activity, especially for those not trained in aviation. It's important to always prioritize safety and follow aviation safety guidelines when flying in weather conditions that involve storms.\n\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 9.8,
+      "output": "<think>\n\n</think>\n\nFlying through a storm is an extraordinary and awe-inspiring experience. As a pilot, I am privileged to navigate the skies, where the atmosphere is as dynamic as the wind. In such conditions, the sky becomes a canvas, and the weather becomes a partner in flight. The storm offers challenges, but also opportunities—both for the pilot and for the weather. It is a harmonious blend of nature and flight, where every\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 14.6,
+      "output": "<think>\n\n</think>\n\nI'm flying through a storm with a sense of freedom. The storm has transformed me, and I am now free. The sky is calm, and the clouds are still. I have the power to fly, and the storm has no power to control me. The wind is still, and the storm is gone. The sky is clear, and the clouds are gone. I have the power to fly, and the storm is gone\n> EOF by user"
+    }
+  }
+}

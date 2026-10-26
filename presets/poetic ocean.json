@@ -1,0 +1,11 @@
+{
+  "model": "models/Qwen3-0.6B-Q8_0.gguf",
+  "dials": [
+    {
+      "name": "poetic",
+      "file": "vectors/poetic.gguf",
+      "strength": 1.0
+    }
+  ],
+  "saved": "2026-10-26 16:51"
+}

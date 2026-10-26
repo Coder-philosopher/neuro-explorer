@@ -1,0 +1,20 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 16:49",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\playful.gguf",
+  "prompt": "Tell me about a fun day at the beach.",
+  "strengths": {
+    "0.0": {
+      "seconds": 7.2,
+      "output": "<think>\n\n</think>\n\nSure! Here's a fun day at the beach:\n\n**Morning:**  \nStart with a morning walk along the beach, where the sand looks perfect and the sun is warming up. You could try something like sand volleyball or beach volleyball. You might also enjoy some fresh fruit or ice cream.\n\n**Afternoon:**  \nGo to the beach pool, where you can swim, play games, and enjoy the view. Maybe take a short break on the sand to relax and enjoy the sunset\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 7.1,
+      "output": "<think>\n\n</think>\n\nSure! Here's a fun day at the beach:\n\n**Morning:**\n- Wake up early to the sound of waves crashing.\n- Go to the beach, enjoy a swim, or just relax on the shore.\n\n**Afternoon:**\n- Have a picnic with friends, catch up on the water, or just have fun with family.\n\n**Evening:**\n- Go to the beach again, maybe play in the surf, or enjoy the sunset.\n\n**Optional:**\n-\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 7.1,
+      "output": "<think>\n\n</think>\n\nHere's a fun day at the beach! 🌊\n\nWhether you're enjoying a sunset at the beach, swimming in the ocean, or exploring the shoreline with friends, here's a fun and exciting beach day for you! 🎉\n\n**What's your favorite beach time?** 🌸\n\nYou can start your day with a sunrise, a fun walk, or even a beach day with friends. Let me know how you're enjoying it! 🌿\n> EOF by user"
+    }
+  }
+}

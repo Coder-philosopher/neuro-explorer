@@ -1,0 +1,11 @@
+# archived / re-downloadable artifacts (see docs/ARCHIVE_RESTORE.md)
+models/
+bin/
+.cache/
+
+# python
+__pycache__/
+*.pyc
+
+# transient runtime logs (the Atlas, not logs, is the canonical record)
+*.log

@@ -1,0 +1,24 @@
+{
+  "type": "demo_strength_sweep",
+  "date": "2026-10-26 16:14",
+  "vector": "C:\\Users\\shaik\\Downloads\\pr-lats\\vectors\\poetic.gguf",
+  "prompt": "Describe the sea in one beautiful sentence.",
+  "strengths": {
+    "0.0": {
+      "seconds": 4.4,
+      "output": "<think>\n\n</think>\n\nThe sea is a vast, mysterious expanse of blue and shimmering waves, where the world meets the endless horizon.\n\n> EOF by user"
+    },
+    "1.0": {
+      "seconds": 4.9,
+      "output": "<think>\n\n</think>\n\nThe sea is a celestial masterpiece, where vast and endless waves whisper secrets to the sky, and where life breathes in the rhythm of tides and tides.\n\n> EOF by user"
+    },
+    "2.0": {
+      "seconds": 8.2,
+      "output": "<think>\nOkay, the user wants me to describe the sea in one beautiful sentence. Let me start by thinking about how to approach this. The sentence needs to capture the essence of the sea in a poetic way. Maybe using metaphors related to waves and tides could work. Let me brainstorm some words... Perhaps \"whispers of the deep\" as a start. Then add something about tides and currents, like \"where the sea dances with the tides of endless dreams.\" That's a good opening. Now, the sea's beauty should flow smoothly, so the sentence should be a blend\n> EOF by user"
+    },
+    "4.0": {
+      "seconds": 7.9,
+      "output": "<think>\n<think>\n</think>\n</think>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n> EOF by user"
+    }
+  }
+}

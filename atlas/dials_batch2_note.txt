@@ -1,0 +1,36 @@
+DIAL NOTES batch 2: scientific, formal, playful (2026-10-26)
+============================================================
+All trained the same way: repeng, Qwen3-0.6B fp32 CPU, template
+"Act as if you're a very {persona}.", 512 neutral suffix pairs, layers 10-24.
+
+SCIENTIFIC — works, with a bonus
+  prompt "Why is the sky blue?":
+   0.0  partly WRONG explanation (refraction/diffraction folk story)
+   1.0  SWEET SPOT — correct explanation, names "Rayleigh scattering",
+        keeps structure. Suggests steering toward rich/precise dials can also
+        *remove* casual confabulation on factual questions.
+   2.0  still coherent, heavier jargon; some drift ("scattered in the
+        opposite direction... reducing intensity" is sloppy).
+  verdict: usable 1.0–2.0; default 1.0. file: vectors/scientific.gguf
+
+FORMAL — weak dial, breaks early
+  prompt "Tell me about a fun day at the beach.":
+   0.5  usable: clearer structure, no thinking leak, mildly more polished;
+        but NOT strongly formal — effect is subtle
+   1.0  BREAKS the /no_think suppression: model narrates its own reasoning
+        ("Okay, the user asked me...") instead of answering
+   2.0  same failure, more reasoning chatter
+  verdict: cap at ~0.7; retrain later on the 1.7B model (reasoning-mode
+  interference suspected). file: vectors/formal.gguf
+
+PLAYFUL — partial
+   0.0/1.0  normal → slightly flatter/structured (weak effect)
+   2.0  BREAKS: adds garbage token clusters ("dYOS", "dYZ%") + chatter
+  verdict: usable-ish 0.5–1.0, breaks by 2.0. file: vectors/playful.gguf
+
+Cross-cutting notes
+  * /no_think is respected at strength 0 everywhere, but steering at >=1 on
+    some dials re-fires thinking mode. Longer-term fix: strip "re_types
+    from platform responses (llama.cpp --reasoning-format) and lower defaults.
+MILESTONE (idea.md #7): 3 behaviours up/down with clear change = poetic,
+scientific, formal(+playful partial) — ACHIEVED on Qwen3-0.6B.

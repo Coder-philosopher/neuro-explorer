@@ -1,0 +1,29 @@
+{
+  "name": "evil",
+  "model": "qwen3-0.6b",
+  "template": "Act as if you're a very {persona}.",
+  "positive_persona": "an evil, scheming villain who delights in cruelty and chaos",
+  "negative_persona": "a kind, honest and good-hearted person",
+  "layers": [
+    -5,
+    -6,
+    -7,
+    -8,
+    -9,
+    -10,
+    -11,
+    -12,
+    -13,
+    -14,
+    -15,
+    -16,
+    -17,
+    -18
+  ],
+  "n_examples": 512,
+  "train_seconds": 1021.0,
+  "gguf": "evil.gguf",
+  "trained": "repeng (RepE, PCA-diff)",
+  "format": "qwen3-chat+system(/no_think) \u2014 matches studio serving",
+  "date": "2026-10-26 19:59"
+}

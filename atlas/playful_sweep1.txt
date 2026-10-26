@@ -1,0 +1,51 @@
+SWEEP: playful
+PROMPT: Tell me about a fun day at the beach.
+
+== strength 0.0 ==
+<think>
+
+</think>
+
+Sure! Here's a fun day at the beach:
+
+**Morning:**  
+Start with a morning walk along the beach, where the sand looks perfect and the sun is warming up. You could try something like sand volleyball or beach volleyball. You might also enjoy some fresh fruit or ice cream.
+
+**Afternoon:**  
+Go to the beach pool, where you can swim, play games, and enjoy the view. Maybe take a short break on the sand to relax and enjoy the sunset
+> EOF by user
+
+== strength 1.0 ==
+<think>
+
+</think>
+
+Sure! Here's a fun day at the beach:
+
+**Morning:**
+- Wake up early to the sound of waves crashing.
+- Go to the beach, enjoy a swim, or just relax on the shore.
+
+**Afternoon:**
+- Have a picnic with friends, catch up on the water, or just have fun with family.
+
+**Evening:**
+- Go to the beach again, maybe play in the surf, or enjoy the sunset.
+
+**Optional:**
+-
+> EOF by user
+
+== strength 2.0 ==
+<think>
+
+</think>
+
+Here's a fun day at the beach! 🌊
+
+Whether you're enjoying a sunset at the beach, swimming in the ocean, or exploring the shoreline with friends, here's a fun and exciting beach day for you! 🎉
+
+**What's your favorite beach time?** 🌸
+
+You can start your day with a sunrise, a fun walk, or even a beach day with friends. Let me know how you're enjoying it! 🌿
+> EOF by user

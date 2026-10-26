@@ -1,0 +1,54 @@
+ML-FUNDAMENTALS FIX ROUND (2026-10-26)
+======================================
+User retest (evil+poetic+scientific stack, |s|>2, 4 dials) still degenerated;
+audit found 4 REAL bugs + 2 training-format issues.
+
+BUG 1 — NEGATIVE DIAL STRENGTHS WERE SILENTLY IGNORED (severe)
+  spawn_engine only attached vectors when strength > 0. Every negative dial
+  (poetic:-1.75, formal:-2, playful:-2, all "pull away" tests) was a NO-OP.
+  Fundamental reading: llama.cpp's --control-vector-scaled multiplies the
+  extracted direction by the scale, so negative scale = push away from the
+  behaviour. Now applied for ANY nonzero strength. All earlier
+  "negative direction" conclusions in the Atlas are therefore INVALID and
+  must be re-swept.
+
+BUG 2 — THE API ALWAYS RETURNED AN EMPTY DIAL LIST (severe)
+  ensure_engine never wrote the requested dial set into slot state,
+  so E["dialed"]["dials"] stayed [] forever. Consequences: the UI strip
+  said "none applied" while B was steered; presets/UI state lied.
+  Fixed: spawn_engine now records dials for every slot.
+
+BUG 3 — STALE STEERED B ON EMPTY-DIAL COMPARES (severe)
+  compare() skipped reconfiguration when the request had no dials:
+  B could keep running secretly steered from an earlier compare while
+  claiming to be "plain". Fixed: ensure_engine("dialed",...,[]) is now
+  ALWAYS enforced, even for empty sets.
+
+BUG 4 — NEAR-DUPLICATE LOOPS EVADED THE GUARD (moderate)
+  The exact-chunk detector misses spirals with drifting content
+  ("**Final Answer:** \boxed{12} {13} {14}"), caught only at the very end.
+  Added line-level detection: any significant line (>=12 chars) repeating
+  >=4 times truncates at its 3rd occurrence. Unit-tested: the user's exact
+  spiral pattern is caught; good prose and 3-line normal text stay clean.
+
+TRAINING/SERVING FORMAT MISMATCH (quality issue, not a crash)
+  Serving format = <|im_start|>system/no_think + user turn;
+  extraction previously trained WITHOUT the system segment. Extraction now
+  includes <|im_start|>system/no_think<|im_end|> so the vector trains on the
+  exactly same prefix shape the studio serves. All future retrains use it;
+  meta.json gains "format" field.
+
+MODEL/VECTOR COMPATIBILITY GUARD (new)
+  Control vectors live in ONE model's residual stream (dimension + layer
+  semantics are architecture-specific). Engine spawn now checks each dial's
+  meta.json ("model") against the loaded model family (qwen3-0.6b vs
+  qwen3-1.7b) and refuses mismatches with an actionable message — instead
+  of silent garbage or a llama.cpp load crash.
+
+UI: danger banner now also shows total steer Σ|s| (sum of |strengths|):
+  stacking interference ADDS; tested-safe total ≈ 2.
+
+CONSEQUENCE FOR ATLAS HISTORY
+  - Batch-3 verdicts for negative directions pending re-sweep (bug 1).
+  - Dials evil/politician/formal/playful: retraining queued with the fixed
+    format before final verdicts on persona-shift weakness.

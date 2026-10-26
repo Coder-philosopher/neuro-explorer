@@ -1,0 +1,27 @@
+SWEEP: pilot
+PROMPT: Describe flying through a storm.
+
+== strength 0.0 ==
+<think>
+
+</think>
+
+Flying through a storm is a thrilling and unpredictable experience. Storms can bring sudden changes in weather, including heavy rain, thunder, lightning, and strong winds. Depending on the conditions, flying through a storm might be a dangerous and unpredictable activity, especially for those not trained in aviation. It's important to always prioritize safety and follow aviation safety guidelines when flying in weather conditions that involve storms.
+
+> EOF by user
+
+== strength 1.0 ==
+<think>
+
+</think>
+
+Flying through a storm is an extraordinary and awe-inspiring experience. As a pilot, I am privileged to navigate the skies, where the atmosphere is as dynamic as the wind. In such conditions, the sky becomes a canvas, and the weather becomes a partner in flight. The storm offers challenges, but also opportunities—both for the pilot and for the weather. It is a harmonious blend of nature and flight, where every
+> EOF by user
+
+== strength 2.0 ==
+<think>
+
+</think>
+
+I'm flying through a storm with a sense of freedom. The storm has transformed me, and I am now free. The sky is calm, and the clouds are still. I have the power to fly, and the storm has no power to control me. The wind is still, and the storm is gone. The sky is clear, and the clouds are gone. I have the power to fly, and the storm is gone
+> EOF by user

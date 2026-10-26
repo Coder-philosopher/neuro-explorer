@@ -1,0 +1,28 @@
+{
+  "name": "playful",
+  "model": "qwen3-0.6b",
+  "template": "Act as if you're a very {persona}.",
+  "positive_persona": "extremely playful, joking, whimsical and cheerful",
+  "negative_persona": "serious, humourless, dry",
+  "layers": [
+    -5,
+    -6,
+    -7,
+    -8,
+    -9,
+    -10,
+    -11,
+    -12,
+    -13,
+    -14,
+    -15,
+    -16,
+    -17,
+    -18
+  ],
+  "n_examples": 512,
+  "train_seconds": 331.5,
+  "gguf": "playful.gguf",
+  "trained": "repeng (RepE, PCA-diff)",
+  "date": "2026-10-26 16:48"
+}
